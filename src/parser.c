@@ -52,7 +52,6 @@ executecommand_t parse_execute(char *input_buffer){
     execute.command = input_buffer;
     execute.arguments[arg_index++] = input_buffer;
     argument_pointer = iterator + 1;
-    printf("AGAIN: %s\n", argument_pointer);
     iterator = iterator + 1;
     while(*iterator != '\n'){
         if(*iterator == ' '){
@@ -66,10 +65,6 @@ executecommand_t parse_execute(char *input_buffer){
     if(*iterator == '\n'){
         *iterator = '\0';
         execute.arguments[arg_index++] = argument_pointer;
-    }
-
-    for(int i = 0; i < MAX_ARGS; i++){
-        printf("THIS IS %s\n", execute.arguments[i]);
     }
 
     return execute;
