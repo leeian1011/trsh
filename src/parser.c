@@ -66,6 +66,10 @@ executecommand_t parse_execute(char *input_buffer){
         *iterator = '\0';
         execute.arguments[arg_index++] = argument_pointer;
     }
+    
+    for(int i = arg_index; i < MAX_ARGS; i++){
+        execute.arguments[i] = NULL;
+    }
 
     return execute;
 }
