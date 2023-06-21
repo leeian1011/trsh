@@ -22,7 +22,8 @@ my original zsh shell, so a simple search online tells me about the `sys/signal.
 What nobody I've ever seen mentioned was that the `signal()` function accepts a whole function as an argument ???
 FUNCTION POINTERS ??? WHAT ??? 
 
-
+`void (*signal(int signum, void (*handler)(int)))(int);`
+This doesnt JUST accepts a function pointer it RETURNS ONE
 
 
 
