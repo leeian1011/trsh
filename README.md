@@ -15,6 +15,13 @@ the same way you would traverse a linked list in C!
 
 Despite knowing this, I feel that indexing into a `char *` with '/[x]' syntax is much better and more readable honestly.
 
+So I was messing around with the shell trying all sort of edge cases and one particular one came up. When running "grep ls", the process
+loops on forever, which is to be expected, but when I force quit with `ctrl + c`, it terminates the shell process altogether and returns me to 
+my original zsh shell, so a simple search online tells me about the `sys/signal.h` library and how certain signals have to be handled.
+
+What nobody I've ever seen mentioned was that the `signal()` function accepts a whole function as an argument ???
+FUNCTION POINTERS ??? WHAT ??? 
+
 
 
 
