@@ -25,6 +25,7 @@ typedef struct{
 typedef struct{
     char *command;
     char *arguments[MAX_ARGS];
+    void (*function)(int);
 }executecommand_t;
 
 typedef struct{
