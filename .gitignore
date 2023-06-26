@@ -1,4 +1,4 @@
-.app
-.out
-.o
+*.app
+*.out
+*.o
 shell
