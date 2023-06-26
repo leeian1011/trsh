@@ -19,7 +19,7 @@ static char *parse_directory(char *new_directory){
 }
 
 
-user_interface ui_init(){
+const user_interface construct_ui(){
     user_interface prompt;
     prompt.prompt = "tr$h :";
     prompt.directory = NULL;

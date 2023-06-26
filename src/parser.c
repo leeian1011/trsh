@@ -28,6 +28,8 @@ command_t parse_type(char *input_buffer){
 
 executecommand_t parse_execute(char *input_buffer){
     executecommand_t execute;
+    execute.arguments = malloc(10);
+    *execute.arguments = malloc(10); 
     int arg_index = 0;
     char *iterator = input_buffer;
     char *argument_pointer = NULL;
@@ -38,7 +40,7 @@ executecommand_t parse_execute(char *input_buffer){
     if(*iterator == '\n'){
         *iterator = '\0';
         execute.command = input_buffer;
-        for(int i = 0; i < MAX_ARGS; i++){
+        for(int i = 0; i < 10; i++){
             if(i == 0){
                 execute.arguments[i] = execute.command;
                 continue;

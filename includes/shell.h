@@ -29,7 +29,7 @@ typedef struct{
 
 typedef struct{
     char *command;
-    char *arguments[MAX_ARGS];
+    char **arguments;
     void (*function)(int);
 }executecommand_t;
 
@@ -58,7 +58,7 @@ command_t parse_type(char *input_buffer);
 executecommand_t parse_execute(char *input_buffer);
 
 //user_interface
-user_interface ui_init();
+const user_interface construct_ui();
 char *update_directory();
 
 #endif 
