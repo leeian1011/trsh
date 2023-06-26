@@ -1,6 +1,9 @@
 #include "../includes/shell.h"
 
 void janky_exit(char *input_buffer){
+    if(input_buffer == NULL){
+        return;
+    printf("heres good\n");}
     char *iterator = malloc(strlen(input_buffer) + 1);
     if(iterator == NULL){
         exit(1);
@@ -13,8 +16,12 @@ void janky_exit(char *input_buffer){
     }
     *iterator = '\0';
     if(strcmp(check, "exit") == 0){
+        free(check);
         exit(1);
     }
+
+    free(check);
+    printf("heres all well as wqell\n");
 }
 
 int main(int argc, char **argv, char **env){
@@ -37,7 +44,6 @@ int main(int argc, char **argv, char **env){
         command = parse_type(input_buffer);
         switch(command.type){
             case EXECUTE:
-                
                 pid = fork();
                 exec_command = parse_execute(input_buffer);
                 printf("%s\n", exec_command.command);
@@ -55,7 +61,6 @@ int main(int argc, char **argv, char **env){
             default:
                 break;
         }
-    printf("end of loop\n");
     fprintf(stdout, "%s %s", ui.directory, ui.prompt);
     }
 }

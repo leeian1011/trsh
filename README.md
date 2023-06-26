@@ -25,6 +25,17 @@ FUNCTION POINTERS ??? WHAT ???
 `void (*signal(int signum, void (*handler)(int)))(int);`
 This doesnt JUST accepts a function pointer it RETURNS ONE
 
+- Some thing interesting i learnt is in the exit built-in function, since i pass in a pointer to the input_buffer, altering the memory
+addresses with an iterator pointer affects the actual memory location, we get a copy of the pointer not a copy of the memory address 
+in the function.
+
+- If you malloc memory to an iterator, you have to assign another pointer to the first memory location, kinda like moving responsibility
+to the new pointer before you iterate through the memory addresses with the iterator pointer.
+
+
+
+
+
 
 
 
