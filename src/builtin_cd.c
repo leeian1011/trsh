@@ -16,6 +16,7 @@ void change_dir(char *input_buffer, user_interface *ui){
     if(*iterator == '\n'){
         char *home = getenv("HOME");
         chdir(home);
+        free(ui->directory);
         ui->directory = update_directory();
         fprintf(stdout, "%s %s", ui->directory, ui->prompt);
         return;
@@ -34,7 +35,7 @@ void change_dir(char *input_buffer, user_interface *ui){
         fprintf(stdout, "%s %s", ui->directory, ui->prompt);
         return;
     }
-
+    free(ui->directory);
     ui->directory = update_directory();
     fprintf(stdout, "%s %s", ui->directory, ui->prompt);
 }

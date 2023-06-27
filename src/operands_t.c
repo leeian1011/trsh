@@ -6,23 +6,20 @@ const operands_t construct_operands(){
     for(int i = 0; i < 3; i++){
         operands.symbol[i] = symbols[i];
     }
+
     for(int i = 1; i < 3; i++){
         operands.type[i-1] = i;
-        if(i == 2){
-            operands.type[i] = REDIRECT;
-        }
-    } 
+        if(i == 2){ operands.type[i] = REDIRECT; }
+    }
 
-    return operands;
+    return(operands);
 }
 
 int is_operand(char current_pointer, operands_t operand){
     for(int i = 0; i < 3; i++){
-        if(current_pointer == operand.symbol[i]){
-            return operand.type[i];
-        }
+        if(current_pointer == operand.symbol[i]){ return(operand.type[i]); }
     }
     
-    return 0;
+    return(0);
 }
     

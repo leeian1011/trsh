@@ -8,6 +8,7 @@
 #define MAX_ARGS 10
 
 #define TYPE_COUNT 5
+#define NO_COMMAND -1
 #define EXECUTE 0
 #define PIPE 1
 #define REDIRECT 2
@@ -53,8 +54,11 @@ void change_dir(char *user_input, user_interface *ui);
 const operands_t construct_operands();
 int is_operand(char current_pointer, operands_t operands);
 
-//parser
+//parsers
+//type-parsing
 command_t parse_type(char *input_buffer);
+
+//execute command parsing
 executecommand_t parse_execute(char *input_buffer);
 
 //user_interface

@@ -1,27 +1,16 @@
 #include "../includes/shell.h"
 
-void janky_exit(char *input_buffer){
-    if(input_buffer == NULL){
-        return;
-    printf("heres good\n");}
-    char *iterator = malloc(strlen(input_buffer) + 1);
-    if(iterator == NULL){
-        exit(1);
-    }
-
-    strcpy(iterator, input_buffer);
-    char *check = iterator;
-    while(*iterator != ' ' && *iterator != '\n'){
-        iterator++;
-    }
+int janky_exit(char *input_buffer){
+    char *exit = "exit";
+    char tmpholder;
+    char *iterator = input_buffer;
+    while(*iterator != ' ' && *iterator != '\n'){ iterator++; }
+    tmpholder = *iterator;
     *iterator = '\0';
-    if(strcmp(check, "exit") == 0){
-        free(check);
-        exit(1);
-    }
+    if(strcmp(input_buffer, exit) == 0){ return(1); }
 
-    free(check);
-    printf("heres all well as wqell\n");
+    *iterator = tmpholder;
+    return(0);
 }
 
 int main(int argc, char **argv, char **env){
@@ -34,34 +23,37 @@ int main(int argc, char **argv, char **env){
     multicommand_t multi_command;
     user_interface ui = construct_ui(); 
     ui.directory = update_directory(); 
+
     fprintf(stdout, "%s %s", ui.directory, ui.prompt);
     while(fgets(input_buffer, 100, stdin) >= 0){
-        janky_exit(input_buffer);
-        if(check_cd(input_buffer) == 1){
+        if(janky_exit(input_buffer)){ exit(-1); }
+
+        if(check_cd(input_buffer)){
             change_dir(input_buffer, &ui);
             continue;
         }
+
         command = parse_type(input_buffer);
+
         switch(command.type){
             case EXECUTE:
                 pid = fork();
-                exec_command = parse_execute(input_buffer);
-                printf("%s\n", exec_command.command);
-                for(int i = 0; i < 10; i++){
-                    printf("%s\n", exec_command.arguments[i]);
-                }
                 if(pid == 0){
+                    exec_command = parse_execute(input_buffer);
                     execvp(exec_command.command, exec_command.arguments); 
                 }
-                wait(NULL);
+                else{ wait(NULL); }
                 break;
             case MULTI:
-
+                printf("Multi reached\n");
             break;
             default:
+                printf("Default reached\n");
                 break;
         }
     fprintf(stdout, "%s %s", ui.directory, ui.prompt);
     }
+
+    return(0);
 }
 
