@@ -26,7 +26,7 @@ command_t parse_type(char *input_buffer){
         character_count++;
     }
 
-    if(operand_count == 0 && character_count > 0){
+    if(operand_count == 0){
         command.type = EXECUTE;
     }
 

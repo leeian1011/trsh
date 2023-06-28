@@ -34,15 +34,16 @@ int main(int argc, char **argv, char **env){
         }
 
         command = parse_type(input_buffer);
-
         switch(command.type){
             case EXECUTE:
                 pid = fork();
                 if(pid == 0){
                     exec_command = parse_execute(input_buffer);
                     execvp(exec_command.command, exec_command.arguments); 
+                }else{
+                    wait(NULL); 
+                    free(exec_command.arguments);
                 }
-                else{ wait(NULL); }
                 break;
             case MULTI:
                 printf("Multi reached\n");
@@ -51,6 +52,7 @@ int main(int argc, char **argv, char **env){
                 printf("Default reached\n");
                 break;
         }
+    input_buffer[0] = '\0';
     fprintf(stdout, "%s %s", ui.directory, ui.prompt);
     }
 

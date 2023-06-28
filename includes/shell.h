@@ -30,8 +30,8 @@ typedef struct{
 
 typedef struct{
     char *command;
-    char **arguments;
-    void (*function)(int);
+    char *(*arguments);
+    int argument_counter;
 }executecommand_t;
 
 typedef struct{
@@ -60,7 +60,7 @@ command_t parse_type(char *input_buffer);
 
 //execute command parsing
 executecommand_t parse_execute(char *input_buffer);
-
+void free_execute(executecommand_t *execute);
 //user_interface
 const user_interface construct_ui();
 char *update_directory();
