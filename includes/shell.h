@@ -65,6 +65,7 @@ void free_execute(executecommand_t *execute);
 
 //pipe parsing
 pipecommand_t parse_pipe(char *input_buffer);
+void pipe_execute(pipecommand_t pipe_command);
 //user_interface
 const user_interface construct_ui();
 char *update_directory();

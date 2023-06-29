@@ -14,7 +14,7 @@ int janky_exit(char *input_buffer){
 }
 
 int main(int argc, char **argv, char **env){
-    int pid;
+    pid_t pid;
     char input_buffer[100];
     command_t command;
     executecommand_t exec_command;
@@ -36,8 +36,8 @@ int main(int argc, char **argv, char **env){
         command = parse_type(input_buffer);
         switch(command.type){
             case EXECUTE:
-                pid = fork();
                 exec_command = parse_execute(input_buffer);
+                pid = fork();
                 if(pid == 0){
                     if(execvp(exec_command.command, exec_command.arguments) == -1){
                         fprintf(stderr, "tr$h : command not found : %s\n", exec_command.command);
@@ -49,8 +49,11 @@ int main(int argc, char **argv, char **env){
                 free(exec_command.arguments);
                 break;
             case PIPE:
+
                 pipe_command = parse_pipe(input_buffer);
-                printf("%s\n%s\n", pipe_command.left.command, pipe_command.right.command);
+                pipe_execute(pipe_command);                
+                free(pipe_command.left.arguments);
+                free(pipe_command.right.arguments);
                 break;
             case MULTI:
                 printf("Multi reached\n");

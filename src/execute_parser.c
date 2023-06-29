@@ -6,7 +6,12 @@ static int argument_count(char *input_buffer){
     int count = 1;
 
     while(*iterator != '\0' && *iterator != '\n'){
-        if(*iterator == ' '){ count++; }
+        if(*iterator == ' ' && *(iterator + 1) != ' '){
+            if(*(iterator + 1) == '\n'){
+                break;
+            }
+            count++;
+        }
         iterator++;
     }
 
@@ -21,12 +26,11 @@ executecommand_t parse_execute(char *input_buffer){
         fprintf(stderr, "Memory Err\n");
         exit(-1);
     }
-
+    printf("ARG_COUNT = %d\n", execute.argument_counter);
     int arg_index = 0;
     char *iterator = input_buffer;
     char *argument_pointer = NULL;
     while(*iterator != ' ' && *iterator != '\n'){ iterator++; }
-
     *iterator = '\0';
     execute.command = input_buffer;
     execute.arguments[arg_index++] = input_buffer;;
