@@ -48,6 +48,10 @@ int main(int argc, char **argv, char **env){
                 }
                 free(exec_command.arguments);
                 break;
+            case PIPE:
+                pipe_command = parse_pipe(input_buffer);
+                printf("%s\n%s\n", pipe_command.left.command, pipe_command.right.command);
+                break;
             case MULTI:
                 printf("Multi reached\n");
             break;

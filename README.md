@@ -78,6 +78,17 @@ process.
 > Quite a janky bug but learnt a lot from this!
 
 
+## PIPES
+
+The good ol' pipe, trying to get two programs, or two processes even, to communicate with one another.
+`pipe(int filedes[2])` creates pipe filedescriptors for read and writes, essentially just an input output stream socket.
+We have to use `dup2()` in order to paste the stdout and stdin file descriptors onto the read and write streams of the pipe.
+
+It's not exactly like a socket, but its eerily similar and it helps me understand much better. It's a lot of redirecting io around.
+
+
+
+
 
 
 

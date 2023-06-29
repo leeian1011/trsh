@@ -8,7 +8,8 @@ all ${shelldir}shell.c:
 	clang -c ${shelldir}operands_t.c
 	clang -c ${shelldir}user_interface.c
 	clang -c ${shelldir}builtin_cd.c
-	clang -o shell ${shelldir}shell.c execute_parser.o type_parser.o operands_t.o user_interface.o builtin_cd.o
+	clang -c ${shelldir}pipe_parser.c
+	clang -o shell ${shelldir}shell.c execute_parser.o type_parser.o operands_t.o user_interface.o builtin_cd.o pipe_parser.o
 
 clean:
 	rm -rf shell

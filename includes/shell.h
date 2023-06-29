@@ -35,7 +35,8 @@ typedef struct{
 }executecommand_t;
 
 typedef struct{
-    int type;
+    executecommand_t left;
+    executecommand_t right;
 }pipecommand_t;
 
 typedef struct{
@@ -61,6 +62,9 @@ command_t parse_type(char *input_buffer);
 //execute command parsing
 executecommand_t parse_execute(char *input_buffer);
 void free_execute(executecommand_t *execute);
+
+//pipe parsing
+pipecommand_t parse_pipe(char *input_buffer);
 //user_interface
 const user_interface construct_ui();
 char *update_directory();
