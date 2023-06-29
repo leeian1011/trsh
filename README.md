@@ -86,7 +86,12 @@ We have to use `dup2()` in order to paste the stdout and stdin file descriptors 
 
 It's not exactly like a socket, but its eerily similar and it helps me understand much better. It's a lot of redirecting io around.
 
+- Had an issue whereby after every second input that involes a pipe, a seg fault occurs, turns out there was an error on how I was parsing
+the user input.
 
+- When creating the right-side command, I accidentally set the '\n' character to '\0' before I call `parse_execute()` on it.
+
+- This causes `parse_execute()` to continuously cycle through memory addresses and causes a segfault.
 
 
 
