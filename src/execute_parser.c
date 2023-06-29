@@ -45,9 +45,6 @@ executecommand_t parse_execute(char *input_buffer){
     
     *iterator = '\0';
     execute.arguments[arg_index] = argument_pointer;
-    for(int i = 0; i < execute.argument_counter; i++){
-        printf("%d, %s\n",execute.argument_counter,  execute.arguments[i]);
-    }
     return(execute);
 }
 

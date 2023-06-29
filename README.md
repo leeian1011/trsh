@@ -32,8 +32,50 @@ in the function.
 - If you malloc memory to an iterator, you have to assign another pointer to the first memory location, kinda like moving responsibility
 to the new pointer before you iterate through the memory addresses with the iterator pointer.
 
+## Processes & Exit 
 
+- Had some issues with getting exit to work, originally noticed that a bug would occur whereby, if '\n' was inputted 'x' times, it would take
+'x + 1' times before exit would work. Managed to solve it by making sure the input pointer's first memory location is set to '\0'.
 
+- The exact same bug behaviour is displayed when I input a program name that does not exist. Realized that both the earlier fix and the current
+issue had the exact same problem and that it was not because there was still commands in the input_buffer. The problem was that I had greatly
+misunderstood the usage of `fork()`. I've mistaken `fork()`'s functionality with `execvp()`'s functionality. I assumed that when `execvp()`
+is ran, the process image is replaced and it automatically kills the child process, but that is wrong. It is still a child process, it's just 
+running a different program.
+
+- When an input appears where the command does not exist, `fork()` creates a child process, but because `execvp()` does not successfully run 
+the process image is not replaced, and the child process is never terminated.
+
+``` C
+command = parse_type(input_buffer);
+switch(command.type){
+    case EXECUTE:
+        pid = fork();
+        exec_command = parse_execute(input_buffer);
+        if(pid == 0){
+            if(execvp(exec_command.command, exec_command.arguments) == -1){
+                fprintf(stderr, "tr$h : command not found : %s\n", exec_command.command);
+                // exit(-1) is suppose to go here.
+            }
+        }else{
+            wait(NULL); 
+        }
+        free(exec_command.arguments);
+        break;
+    case MULTI:
+        printf("Multi reached\n");
+        break;
+    default:
+        printf("Default reached\n");
+        break;
+}
+```
+- The code example above is the original version that led to the bug. Seeing as execvp does not change the process image, and the new 
+program essentially does not "terminate" or "exit" the parent process is eternally waiting for the child process to terminate.
+The child process proceeds on with the code, and continues the loop. The bug is essentially exiting the subprocess and returning to the parent
+process.
+
+> Quite a janky bug but learnt a lot from this!
 
 
 

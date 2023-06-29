@@ -37,13 +37,16 @@ int main(int argc, char **argv, char **env){
         switch(command.type){
             case EXECUTE:
                 pid = fork();
+                exec_command = parse_execute(input_buffer);
                 if(pid == 0){
-                    exec_command = parse_execute(input_buffer);
-                    execvp(exec_command.command, exec_command.arguments); 
+                    if(execvp(exec_command.command, exec_command.arguments) == -1){
+                        fprintf(stderr, "tr$h : command not found : %s\n", exec_command.command);
+                        exit(-1);
+                    }
                 }else{
                     wait(NULL); 
-                    free(exec_command.arguments);
                 }
+                free(exec_command.arguments);
                 break;
             case MULTI:
                 printf("Multi reached\n");
@@ -52,7 +55,7 @@ int main(int argc, char **argv, char **env){
                 printf("Default reached\n");
                 break;
         }
-    input_buffer[0] = '\0';
+    input_buffer[0] = '\n';
     fprintf(stdout, "%s %s", ui.directory, ui.prompt);
     }
 
