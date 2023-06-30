@@ -26,7 +26,6 @@ executecommand_t parse_execute(char *input_buffer){
         fprintf(stderr, "Memory Err\n");
         exit(-1);
     }
-    printf("ARG_COUNT = %d\n", execute.argument_counter);
     int arg_index = 0;
     char *iterator = input_buffer;
     char *argument_pointer = NULL;
@@ -50,9 +49,6 @@ executecommand_t parse_execute(char *input_buffer){
     *iterator = '\0';
     execute.arguments[arg_index] = argument_pointer;
 
-    for(int i = 0; i < execute.argument_counter; i++){
-        printf("%s\n", execute.arguments[i]);
-    }
     return(execute);
 }
 

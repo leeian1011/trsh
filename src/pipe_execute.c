@@ -15,7 +15,8 @@ void pipe_execute(pipecommand_t pipe_command){
 
             dup2(pipe_filedescriptors[1], STDOUT_FILENO);
             if(execvp(pipe_command.left.command, pipe_command.left.arguments) == -1){
-                printf("DIOS MIOS\n");
+                close(pipe_filedescriptors[1]);
+                fprintf(stderr, "command not found: %s\n", pipe_command.left.command);
                 exit(-1);
             }
         }else{
@@ -23,7 +24,8 @@ void pipe_execute(pipecommand_t pipe_command){
 
             dup2(pipe_filedescriptors[0], STDIN_FILENO);
             if(execvp(pipe_command.right.command, pipe_command.right.arguments) == -1){
-                printf("SOMETHING UFCK UPO\n");
+                close(pipe_filedescriptors[0]);
+                fprintf(stderr, "command not found : %s\n", pipe_command.right.command);
                 exit(-1);
             }
         }
