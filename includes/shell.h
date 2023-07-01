@@ -38,9 +38,10 @@ typedef struct{
     executecommand_t left;
     executecommand_t right;
 }pipecommand_t;
-
+    
 typedef struct{
-
+    char *file_name;
+    executecommand_t program;
 }redirectcommand_t;
 
 typedef struct{
@@ -66,6 +67,10 @@ void free_execute(executecommand_t *execute);
 //pipe parsing
 pipecommand_t parse_pipe(char *input_buffer);
 void pipe_execute(pipecommand_t pipe_command);
+
+//redirect parsing
+redirectcommand_t parse_redirect(char *input_buffer);
+
 //user_interface
 const user_interface construct_ui();
 char *update_directory();

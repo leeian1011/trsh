@@ -98,6 +98,10 @@ the user input.
 
 - This causes `parse_execute()` to continuously cycle through memory addresses and causes a segfault.
 
+## REDIRECTION
+
+Read up about enums and how they allow better readability, will attempt to learn how to use them by implementing enums in the program.
+
 
 
 
