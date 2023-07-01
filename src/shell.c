@@ -41,7 +41,7 @@ int main(int argc, char **argv, char **env){
                 if(pid == 0){
                     if(execvp(exec_command.command, exec_command.arguments) == -1){
                         fprintf(stderr, "tr$h : command not found : %s\n", exec_command.command);
-                        exit(-1);
+                        exit(ERROR);
                     }
                 }else{
                     wait(NULL); 
@@ -56,11 +56,7 @@ int main(int argc, char **argv, char **env){
                 break;
             case REDIRECT:
                 redirect_command = parse_redirect(input_buffer);
-                for(int i = 0; i < redirect_command.program.argument_counter; i++){
-                    printf("%s\n", redirect_command.program.arguments[i]);
-                }
-                printf("%s\n", redirect_command.program.command);
-                printf("%s\n", redirect_command.file_name);
+                redirect_execute(redirect_command);
                 break;
             case MULTI:
                 printf("Multi reached\n");

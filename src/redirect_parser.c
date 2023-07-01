@@ -6,7 +6,14 @@ redirectcommand_t parse_redirect(char *input_buffer){
     while(*iterator != '<' && *iterator != '>'){
         iterator++;
     }
-    *(iterator -1) = '\n';    
+    
+    *(iterator -1) = '\n';
+    if(*iterator == '>'){
+        redirect.redirect_type = REDIRECT_OUTPUT;
+    }else{
+        redirect.redirect_type = REDIRECT_INPUT;
+    }
+    printf("%d\n", redirect.redirect_type);
     redirect.program = parse_execute(input_buffer);
     
     while(*iterator == ' ' || *iterator == '>' || *iterator == '<'){

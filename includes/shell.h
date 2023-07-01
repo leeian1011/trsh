@@ -6,27 +6,32 @@
 #include <stdlib.h>
 
 #define MAX_ARGS 10
+#define OPERAND_COUNT 5
 
-#define TYPE_COUNT 5
-#define NO_COMMAND -1
-#define EXECUTE 0
-#define PIPE 1
-#define REDIRECT 2
-#define MULTI 3
+
+typedef struct{
+    int type[OPERAND_COUNT];
+    char symbol[OPERAND_COUNT];
+}operands_t;
+
+enum operands{ NO_COMMAND = -1,
+               EXECUTE,
+               PIPE,
+               REDIRECT,
+               MULTI,
+             };
+
 
 typedef struct{
     char *directory;
     const char *prompt;
 }user_interface;
 
-typedef struct{
-    int type[TYPE_COUNT];
-    char symbol[TYPE_COUNT];
-}operands_t;
 
 typedef struct{
     int type;
 }command_t;
+
 
 typedef struct{
     char *command;
@@ -34,15 +39,34 @@ typedef struct{
     int argument_counter;
 }executecommand_t;
 
+enum exec_code{ SUCCESS,
+                ERROR,
+              };
+
+
 typedef struct{
     executecommand_t left;
     executecommand_t right;
 }pipecommand_t;
-    
+
+enum pipe_code{ PIPE_SUCCESS,
+                PIPE_ERROR,
+              }; 
+
+
 typedef struct{
+    int redirect_type;
     char *file_name;
     executecommand_t program;
 }redirectcommand_t;
+
+enum redirect_type{ REDIRECT_INPUT,
+                    REDIRECT_OUTPUT,
+                  };
+
+enum redirect_code{ REDIRECT_SUCCES,
+                    REDIRECT_ERROR,
+                  };
 
 typedef struct{
 
@@ -66,11 +90,11 @@ void free_execute(executecommand_t *execute);
 
 //pipe parsing
 pipecommand_t parse_pipe(char *input_buffer);
-void pipe_execute(pipecommand_t pipe_command);
+enum pipe_code pipe_execute(pipecommand_t pipe_command);
 
 //redirect parsing
 redirectcommand_t parse_redirect(char *input_buffer);
-
+void redirect_execute(redirectcommand_t redirect);
 //user_interface
 const user_interface construct_ui();
 char *update_directory();
