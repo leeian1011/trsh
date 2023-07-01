@@ -11,7 +11,7 @@ command_t parse_type(char *input_buffer){
     if(*iterator == '\n'){
         command.type = NO_COMMAND;
         return(command);
-    }
+    } 
 
     while(*iterator != '\n'){
         if((operand_value = is_operand(*iterator, operand)) != 0){

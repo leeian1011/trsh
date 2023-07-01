@@ -29,7 +29,6 @@ pipecommand_t parse_pipe(char *input_buffer){
         iterator++;
     }
     pipe.right = parse_execute(right_string);
-   
     return pipe;
 }
 

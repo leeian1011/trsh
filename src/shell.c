@@ -49,11 +49,18 @@ int main(int argc, char **argv, char **env){
                 free(exec_command.arguments);
                 break;
             case PIPE:
-
                 pipe_command = parse_pipe(input_buffer);
                 pipe_execute(pipe_command);                
                 free(pipe_command.left.arguments);
                 free(pipe_command.right.arguments);
+                break;
+            case REDIRECT:
+                redirect_command = parse_redirect(input_buffer);
+                for(int i = 0; i < redirect_command.program.argument_counter; i++){
+                    printf("%s\n", redirect_command.program.arguments[i]);
+                }
+                printf("%s\n", redirect_command.program.command);
+                printf("%s\n", redirect_command.file_name);
                 break;
             case MULTI:
                 printf("Multi reached\n");
