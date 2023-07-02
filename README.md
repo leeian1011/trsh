@@ -7,7 +7,7 @@ but others are process logic issues like 'cd'!
 I've decided to make a mini simple shell that imitates the behaviour of typical shells like bash from scratch with C to further my understanding!
 
 ## DEMO
-![demo of shell running](https://github.com/leeian1011/trsh/blob/main/demos/shelldemo.gif)
+![demo of shell running](https://github.com/leeian1011/trsh/blob/main/demos/new-shell-demo.gif)
 
 > Demo of most up to date functionality.
 
