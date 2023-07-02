@@ -64,7 +64,7 @@ enum redirect_type{ REDIRECT_INPUT,
                     REDIRECT_OUTPUT,
                   };
 
-enum redirect_code{ REDIRECT_SUCCES,
+enum redirect_code{ REDIRECT_SUCCESS,
                     REDIRECT_ERROR,
                   };
 
@@ -94,7 +94,7 @@ enum pipe_code pipe_execute(pipecommand_t pipe_command);
 
 //redirect parsing
 redirectcommand_t parse_redirect(char *input_buffer);
-void redirect_execute(redirectcommand_t redirect);
+enum redirect_code redirect_execute(redirectcommand_t redirect);
 //user_interface
 const user_interface construct_ui();
 char *update_directory();

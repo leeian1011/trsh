@@ -50,13 +50,14 @@ int main(int argc, char **argv, char **env){
                 break;
             case PIPE:
                 pipe_command = parse_pipe(input_buffer);
-                pipe_execute(pipe_command);                
+                pipe_execute(pipe_command);
                 free(pipe_command.left.arguments);
                 free(pipe_command.right.arguments);
                 break;
             case REDIRECT:
                 redirect_command = parse_redirect(input_buffer);
                 redirect_execute(redirect_command);
+                free(redirect_command.program.arguments);
                 break;
             case MULTI:
                 printf("Multi reached\n");

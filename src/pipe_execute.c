@@ -3,8 +3,8 @@
 enum pipe_code pipe_execute(pipecommand_t pipe_command){
     int pipe_filedesc[2];
     if(pipe(pipe_filedesc) == -1){
-        fprintf(stderr, "big file descriptor no no\n");
-        exit(-1);
+        fprintf(stderr, "pipe error\n");
+        exit(PIPE_ERROR);
     }
     pid_t pid = fork();
 
@@ -25,7 +25,7 @@ enum pipe_code pipe_execute(pipecommand_t pipe_command){
             dup2(pipe_filedesc[0], STDIN_FILENO);
             if(execvp(pipe_command.right.command, pipe_command.right.arguments) == -1){
                 close(pipe_filedesc[0]);
-                fprintf(stderr, "command not found : %s\n", pipe_command.right.command);
+                fprintf(stderr, "command not found: %s\n", pipe_command.right.command);
                 exit(PIPE_ERROR);
             }
         }
@@ -33,8 +33,6 @@ enum pipe_code pipe_execute(pipecommand_t pipe_command){
         close(pipe_filedesc[0]);
         close(pipe_filedesc[1]);
         wait(NULL);
-        free(pipe_command.left.arguments);
-        free(pipe_command.right.arguments);
     }
     return (PIPE_SUCCESS);
 }

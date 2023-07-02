@@ -13,7 +13,7 @@ redirectcommand_t parse_redirect(char *input_buffer){
     }else{
         redirect.redirect_type = REDIRECT_INPUT;
     }
-    printf("%d\n", redirect.redirect_type);
+
     redirect.program = parse_execute(input_buffer);
     
     while(*iterator == ' ' || *iterator == '>' || *iterator == '<'){
