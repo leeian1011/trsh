@@ -101,7 +101,12 @@ the user input.
 ## REDIRECTION
 
 Read up about enums and how they allow better readability, will attempt to learn how to use them by implementing enums in the program.
+Learnt something really cool!
 
+- When using `fgets()` what ends up happening is that the function reads from the input source up until it reachs a '\n' character.
+This caused a bug where attempting to use `fgets()` on the output of the command `ls` causes a problem whereby it only reads upto 
+the first directory/file present! This causes issues when trying to read to a buffer thats 1024 bytes big leading to lots of unfilled 
+memory address and leading to undefined behaviour.
 
 
 
