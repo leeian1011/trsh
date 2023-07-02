@@ -1,0 +1,22 @@
+total 192
+drwxr-xr-x@ 21 open  staff    672 Jul  2 10:20 .
+drwxr-xr-x@ 13 open  staff    416 Jun 30 08:47 ..
+drwxr-xr-x@ 15 open  staff    480 Jul  2 09:52 .git
+-rw-r--r--@  1 open  staff     22 Jun 26 17:21 .gitignore
+-rw-r--r--@  1 open  staff   6375 Jul  2 10:10 README.md
+-rw-r--r--@  1 open  staff   1736 Jul  2 10:19 builtin_cd.o
+drwxr-xr-x@  3 open  staff     96 Jun 30 08:47 demos
+-rw-r--r--@  1 open  staff   1584 Jul  2 10:19 execute_parser.o
+drwxr-xr-x@  3 open  staff     96 Jul  2 09:03 includes
+-rw-r--r--@  1 open  staff    569 Jul  1 22:25 makefile
+-rw-r--r--@  1 open  staff   1128 Jul  2 10:19 operands_t.o
+-rw-r--r--@  1 open  staff   1672 Jun 26 18:16 parser.o
+-rw-r--r--@  1 open  staff   1688 Jul  2 10:19 pipe_execute.o
+-rw-r--r--@  1 open  staff    944 Jul  2 10:19 pipe_parser.o
+-rw-r--r--@  1 open  staff   3224 Jul  2 10:19 redirect_execute.o
+-rw-r--r--@  1 open  staff   1192 Jul  2 10:19 redirect_parser.o
+-rwxr-xr-x@  1 open  staff  35602 Jul  2 10:19 shell
+drwxr-xr-x@ 12 open  staff    384 Jul  2 10:08 src
+-rw-r--r--@  1 open  staff   1216 Jul  2 10:20 test
+-rw-r--r--@  1 open  staff    888 Jul  2 10:19 type_parser.o
+-rw-r--r--@  1 open  staff   1424 Jul  2 10:19 user_interface.o

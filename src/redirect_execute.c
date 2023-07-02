@@ -25,7 +25,7 @@ static enum redirect_code execute_output(redirectcommand_t redirect){
             if(buffer == NULL){
                 exit(-1);
             }
-
+            
             while((bytes_read = read(pipe_filedesc[0], buffer + total_bytes, buffer_size - total_bytes)) > 0){
                 total_bytes += bytes_read;
                 if(total_bytes == buffer_size){

@@ -108,6 +108,9 @@ This caused a bug where attempting to use `fgets()` on the output of the command
 the first directory/file present! This causes issues when trying to read to a buffer thats 1024 bytes big leading to lots of unfilled 
 memory address and leading to undefined behaviour.
 
+- Learnt about how pointer arithmetic can help with working around reading unknown size of data.
+Combining offset of data read, and data to be read, along with realloc allows us to read unknown size of data.
+
 
 
 
