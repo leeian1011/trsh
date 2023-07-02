@@ -57,9 +57,6 @@ static enum redirect_code execute_input(redirectcommand_t redirect){
     if(pid == 0){
         pid_t pid2 = fork();
         if(pid2 == 0){
-            int buffer_size = 1024;
-            int total_bytes = 0;
-            int bytes_read = 0;
             close(pipe_filedesc[0]);
 
             dup2(pipe_filedesc[1], STDOUT_FILENO);
@@ -67,24 +64,17 @@ static enum redirect_code execute_input(redirectcommand_t redirect){
             if(file == NULL){
                 exit(REDIRECT_ERROR);
             }
-
-            char *buffer = malloc(buffer_size);
-            if(buffer == NULL){
-                exit(-1);
-            }
-
-            while((bytes_read = fread(buffer + total_bytes, buffer_size - total_bytes, sizeof(char), file)) > 0){
-                total_bytes += bytes_read;
-                if(total_bytes == buffer_size){
-                    buffer_size*=2;
-                    buffer = realloc(buffer, buffer_size);
-                }
-            }
-
-            buffer[strlen(buffer) - 1] = '\0';
+            char c;
+            fseek(file, 0, SEEK_END);
+            int file_size = ftell(file);
+            fseek(file, 0, SEEK_SET);
+            rewind(file);
+            char *buffer = malloc(file_size);
+            fread(buffer, file_size, sizeof(char), file);
 
             fclose(file);
-            write(STDOUT_FILENO, buffer, strlen(buffer));
+            write(STDOUT_FILENO, buffer, file_size);
+            free(buffer);
             exit(PIPE_SUCCESS);
         }else{
             close(pipe_filedesc[1]);
