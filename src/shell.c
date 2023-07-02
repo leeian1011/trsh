@@ -60,10 +60,9 @@ int main(int argc, char **argv, char **env){
                 free(redirect_command.program.arguments);
                 break;
             case MULTI:
-                printf("Multi reached\n");
+                fprintf(stderr, "This janky shell cannot support the use of multiple operands\n");
             break;
             default:
-                printf("Default reached\n");
                 break;
         }
     input_buffer[0] = '\n';

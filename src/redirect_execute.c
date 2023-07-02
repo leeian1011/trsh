@@ -16,14 +16,27 @@ static enum redirect_code execute_output(redirectcommand_t redirect){
                 exit(ERROR);
             }
         }else{
+            int buffer_size = 1024;
+            int bytes_read = 0;
+            int total_bytes = 0;
             close(pipe_filedesc[1]);
             dup2(pipe_filedesc[0], STDIN_FILENO);
+            char *buffer = malloc(buffer_size);
+            if(buffer == NULL){
+                exit(-1);
+            }
 
-            char buffer[1024];
-            read(STDIN_FILENO, buffer, 1024);
+            while((bytes_read = read(pipe_filedesc[0], buffer + total_bytes, buffer_size - total_bytes)) > 0){
+                total_bytes += bytes_read;
+                if(total_bytes == buffer_size){
+                buffer_size*=2;}
+                buffer = realloc(buffer, buffer_size);
+            }
+
             buffer[strlen(buffer) - 1] = '\n';
             FILE *file = fopen(redirect.file_name, "w");
             fprintf(file, "%s", buffer);
+            free(buffer);
             fclose(file);
             exit(REDIRECT_SUCCESS);
         }
@@ -44,6 +57,9 @@ static enum redirect_code execute_input(redirectcommand_t redirect){
     if(pid == 0){
         pid_t pid2 = fork();
         if(pid2 == 0){
+            int buffer_size = 1024;
+            int total_bytes = 0;
+            int bytes_read = 0;
             close(pipe_filedesc[0]);
 
             dup2(pipe_filedesc[1], STDOUT_FILENO);
@@ -51,8 +67,20 @@ static enum redirect_code execute_input(redirectcommand_t redirect){
             if(file == NULL){
                 exit(REDIRECT_ERROR);
             }
-            char buffer[1024];
-            fread(buffer, 1024, sizeof(char), file);
+
+            char *buffer = malloc(buffer_size);
+            if(buffer == NULL){
+                exit(-1);
+            }
+
+            while((bytes_read = fread(buffer + total_bytes, buffer_size - total_bytes, sizeof(char), file)) > 0){
+                total_bytes += bytes_read;
+                if(total_bytes == buffer_size){
+                    buffer_size*=2;
+                    buffer = realloc(buffer, buffer_size);
+                }
+            }
+
             buffer[strlen(buffer) - 1] = '\0';
 
             fclose(file);
